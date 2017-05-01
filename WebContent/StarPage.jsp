@@ -12,19 +12,18 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-	<!-- Latest compiled and minified CSS -->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-
-	<!-- Optional theme -->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
-
-	<!-- Latest compiled and minified JavaScript -->
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 	<title>Star page</title>
 </head>
 <body>
-<div class="well"><a href="Home">Home</a> > Star page</div> 
+<jsp:include page="WEB-INF/View/Shared/Layout.jsp" />
+<br>
+<div class="container">
+	<div class="well well-sm">
+		<a href="Home">Home</a> >
+		<a href="javascript:history.back()"> Movie list </a> > Star page
+	</div>
+</div>
+
 <%
 	String fname = request.getParameter("first_name");
 	String lname = request.getParameter("last_name");
@@ -54,6 +53,7 @@
 	st.close();
 %>
 
+
 <div class="container" style="center">
 	<caption><h2>Star information</h2></caption>	
 	<table class = "table table-hover table-bordered">
@@ -75,8 +75,11 @@
           	<td><c:out value="${star.dob}"/></td>
         </tr>
         <tr>
-          	<th>Photo URL</th>
-          	<td><c:out value="${star.photo_url}"/></td>
+          	<th>Photo</th>
+          	<td>
+          	<img src="${star.photo_url}" class="img-responsive" alt="Cinque Terre" width="250" height="250">
+          	</td>
+          
       	</tr>
    	 	<tr>
           	<th>Movies</th>

@@ -16,19 +16,15 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Movie page</title>
 
-	<script
-		  src="https://code.jquery.com/jquery-3.2.1.min.js"
-		  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
-		  crossorigin="anonymous">
-	</script>
-	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-
 </head>
 <body>
-
-<div class="well well-sm">
-	<a href="Home">Home</a> > Movie page
+<jsp:include page="WEB-INF/View/Shared/Layout.jsp" />
+<br>
+<div class="container">
+	<div class="well well-sm">
+		<a href="Home">Home</a> > 
+		<a href="javascript:history.back()"> Movie list </a> > Movie page
+	</div>
 </div>
 
 <% 
@@ -44,7 +40,7 @@
 %>
 <div class="container" style="center">
 	<h2>Movie information</h2>
-	<table id ="mytable" class = "table table-hover table-bordered">
+	<table class = "table table-hover table-bordered">
 		      	<tr>
 		          	<th>ID</th>
 		          	<td><c:out value="${movie.id}"/></td>
@@ -88,13 +84,17 @@
 		      	</tr>
 		      	<tr>
 		          	<th>Poster</th>
-		          	<td><c:out value="${movie.banner_url}"/></td>
+		          	<td><img src="${movie.banner_url}" class="img-responsive" alt="Cinque Terre" width="200"></td>
 		      	</tr>
 		      	<tr>
 		          	<th>Trailer</th>
-		          	<td><c:out value="${movie.trailer_url}"/></td>
+		          	<td><a href="${movie.trailer_url}"><c:out value="${movie.trailer_url}"/></a></td>
 		      	</tr>
 	</table>
+	<form method="get" action="Shopping">
+        <button type="submit" class="btn btn-primary" name= "movie" value = "${movie.title}">Add to Cart</button>
+    </form>
 </div>
+
 </body>
 </html>
