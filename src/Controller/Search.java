@@ -61,7 +61,6 @@ public class Search extends HttpServlet
 			dbMovie movieDb = new dbMovie();
 			allMovie = movieDb.GetAllMovies();
 			CacheService.AddCache(request, CacheService.FULL_MOVIE_LIST_CACHE_NAME, allMovie);
-
 		}
 		if(allGenre == null){
 			dbGenre genreDb = new dbGenre();

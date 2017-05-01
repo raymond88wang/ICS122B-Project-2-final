@@ -143,6 +143,65 @@
 						ng-change="RefreshPage()">
 					</select>
 				</div>
+<<<<<<< HEAD:ICS122B/WebContent/WEB-INF/View/DisplayResults.jsp
+=======
+			</div> 			 
+			<table id="table" class="table table-bordered table-striped">
+				<tr>
+		          	<th>Image</th>
+		          	<th>ID</th>
+		          	<th>Title</th>
+		          	<th>Year</th>
+		          	<th>Director</th>
+		          	<th>Genres</th>
+		          	<th >Featured stars</th>
+		          	<th><span class = "glyphicon glyphicon-shopping-cart" ></span></th>
+		      	</tr>
+				<tbody>
+					<tr ng-repeat="movie in movieList">
+						<td align = "center">
+	    						<img src = "${movie.banner_url} class="img-thumbnail" alt="Cinque Terre" width="200" height="200"" alt= "No image"></img>
+						</td>
+			            <td>{{movie.id}}</td>
+			            <td>
+			            	<a href = "#">{{movie.title}}</a> 
+			            </td>
+			            <td>{{movie.year}}</td>
+			            <td>{{movie.director}}</td>
+			            <td>
+			            	<p ng-repeat="g in movie.genres">{{g.name}}<span ng-show="!$last">, </span></p>
+			            </td>
+			            <td>
+			            	<a ng-repeat="s in movie.stars">{{s.first_name}} {{s.last_name}}<span ng-show="!$last">, </span></a>
+			            </td>
+			            <td>
+			            	<form method="get" action="">
+			            		<button type="submit" class="btn btn-primary">Add to Cart</button>
+			            	</form>
+			            </td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	
+			<div align="center">
+				<nav>
+					<ul class= "pagination">
+						<li>
+							<a arial-label = "Previous" ng-click="GetNextPage(filters.currentPage-1)">
+								<span aria-hidden="true">Previous</span>
+								<span class="sr-only">Previous</span>
+							</a>
+						</li>
+						<li>
+							<a arial-label = "Next" ng-click="GetNextPage(filters.currentPage+1)">
+								<span aria-hidden="true">Next</span>
+								<span class="sr-only">Next</span>
+							</a>
+						</li>
+					</ul>
+				</nav>
+>>>>>>> 47518afd140b174cfc20ffd510e53b687f39c115:WebContent/WEB-INF/View/DisplayResults.jsp
 			</div>
 		</div> 	
 		<div class="row">
