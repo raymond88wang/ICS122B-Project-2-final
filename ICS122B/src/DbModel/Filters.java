@@ -6,10 +6,12 @@ public class Filters {
 	public String searchWord = null;
 	public String type = null;
 	public int pageLength = 10;
-	public int currentPage = 0;
+	public int currentPage = 1;
+	public String orderBy = "title";
+	public Boolean isDesc = true;
 	
 	public Filters(){
-		genre = "";
+		genre = "All";
 		searchWord = "";
 		type = "";
 	}

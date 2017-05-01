@@ -12,6 +12,7 @@ public class CacheService {
 	public static final String CURRENT_MOVIE_LIST_CACHE_NAME = "CURRENT_LIST";
 	public static final String GENRE_CACHE_NAME = "GENRE";
 	public static final String STAR_CACHE_NAME = "STAR";
+	public static final String FILTER_CACHE_NAME = "FILTER";
 	public CacheService(){
 		
 	}

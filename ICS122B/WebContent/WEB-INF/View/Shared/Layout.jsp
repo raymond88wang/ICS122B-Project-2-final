@@ -10,8 +10,10 @@
 		  crossorigin="anonymous">
 	</script>
 	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/css/bootstrap-select.min.css">
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/js/bootstrap-select.min.js"></script>
 </head>
 	<body>
 		<div class="container-fluid">
@@ -26,28 +28,23 @@
 				      <li class="active"><a href="Home">Home</a></li>
 				      
 				      <!-- Drop down menu for Browse -->
-				      
-				      <li><a href="BrowseTitle.jsp">Browse by title</a></li>
 				    </ul>
 				    
 				    <ul class="nav navbar-nav navbar-right">
 				    	<li><a href="#">Logout</a></li>
 				    </ul>
-				    <form class="navbar-form navbar-left" action="Search" method="get">
+				    <form class="navbar-form navbar-left" action="HomeSearch" method="get">
 				        <div class="form-group">
-				          <input type="text" name="text" required class="form-control" placeholder="Search">
-					          <select name = "attribute">
-									<option value ="title" selected">Title</option>
-									<option value = "year">Year</option>
-									<option value = "director">Director</option>
-									<option value = "fullName">Star's full name</option>
-									<option value = "first_name">Star's first name</option>
-									<option value = "last_name">Star's last name</option>
-							  </select>
+				          <input type="text" name="searchWord" required class="form-control" placeholder="Search">
+				          <select name="type" class="selectpicker" data-width="fit">
+								<option value ="title" selected>Title</option>
+								<option value = "year">Year</option>
+								<option value = "director">Director</option>
+								<option value = "star">Star's name</option>
+						  </select>
 				        </div>
-				        <button type="submit" class="btn btn-default">Submit</button>
-			      	</form>
-				    
+				        <button type="submit" class="btn btn-default">Search</span></button>
+			      	</form>		
 				  </div>
 				</nav>
 			</div>

@@ -15,15 +15,17 @@ import AppService.ResponseService;
 import DbModel.Filters;
 import DbModel.Movie;
 
-
-@WebServlet("/Page")
-public class Page extends HttpServlet {
+/**
+ * Servlet implementation class HomeSearch
+ */
+@WebServlet("/HomeSearch")
+public class HomeSearch extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
+       
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public Page() {
+    public HomeSearch() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,26 +34,33 @@ public class Page extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		Filters filter = (Filters)JsonService.GetJsonFromObject(request.getParameter("filter"), Filters.class);
-		if(filter == null){
-			filter = (Filters)CacheService.GetCache(request, CacheService.FILTER_CACHE_NAME);
+		if(CacheService.GetCache(request, CacheService.USER_CACHE_NAME) != null){
+			String type = request.getParameter("type");
+			String searchWord = request.getParameter("searchWord");
+			
+			Filters filter = (Filters)CacheService.GetCache(request, CacheService.FILTER_CACHE_NAME);
 			if(filter == null){
 				filter = new Filters();
 			}
+			
+			filter.searchWord = searchWord;
+			filter.type = type;
+			
+			CacheService.AddCache(request, CacheService.FILTER_CACHE_NAME, filter);
+			request.setAttribute("body_url", Home.HOME_VIEW);
 		}
-		CacheService.AddCache(request, CacheService.FILTER_CACHE_NAME, filter);
-		@SuppressWarnings("unchecked")
-		List<Movie> movieResult = (List<Movie>)CacheService.GetCache(request, CacheService.CURRENT_MOVIE_LIST_CACHE_NAME);
-		
-		movieResult = movieResult.subList((filter.currentPage -1)*filter.pageLength, Math.min(movieResult.size(), (filter.currentPage)*filter.pageLength));
-		
-		ResponseService.SendJson(response, movieResult);
+		else{
+			request.setAttribute("body_url", Login.LOGIN_VIEW);
+		}
+		ResponseService.SendResponse(request, response);
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		doGet(request, response);
 	}
 
 }

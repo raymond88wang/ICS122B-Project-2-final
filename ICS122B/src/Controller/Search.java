@@ -43,6 +43,13 @@ public class Search extends HttpServlet
 	{	
 		Filters filter = (Filters)JsonService.GetJsonFromObject(request.getParameter("filter"), Filters.class);
 		
+		if(filter == null){
+			filter = (Filters)CacheService.GetCache(request, CacheService.FILTER_CACHE_NAME);
+			if(filter == null){
+				filter = new Filters();
+			}
+		}
+		
 		SearchService searchRequest = new SearchService();
 		MovieListViewModel vm = new MovieListViewModel();
 		
@@ -69,14 +76,13 @@ public class Search extends HttpServlet
 		
 		List<Movie> movieReult = searchRequest.getMovieList(allMovie, filter);
 		CacheService.AddCache(request, CacheService.CURRENT_MOVIE_LIST_CACHE_NAME, movieReult);
-		
+		CacheService.AddCache(request, CacheService.FILTER_CACHE_NAME, filter);
 		vm.setGenreList(allGenre);;
-		vm.setMovieList(movieReult.subList(0, Math.min(movieReult.size(), 10)));
+		vm.setMovieList(movieReult.subList(0, Math.min(movieReult.size(), filter.pageLength)));
 		vm.setMovieCount(movieReult.size());
 		vm.setFilters(filter);
 		
 		ResponseService.SendJson(response, vm);
-	
 	}
 	
 	/**

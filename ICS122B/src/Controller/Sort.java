@@ -1,7 +1,9 @@
 package Controller;
 
 import java.io.IOException;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -15,15 +17,14 @@ import AppService.ResponseService;
 import DbModel.Filters;
 import DbModel.Movie;
 
-
-@WebServlet("/Page")
-public class Page extends HttpServlet {
+@WebServlet("/Sort")
+public class Sort extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public Page() {
+    public Sort() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -33,18 +34,36 @@ public class Page extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Filters filter = (Filters)JsonService.GetJsonFromObject(request.getParameter("filter"), Filters.class);
+		
 		if(filter == null){
 			filter = (Filters)CacheService.GetCache(request, CacheService.FILTER_CACHE_NAME);
 			if(filter == null){
 				filter = new Filters();
 			}
 		}
-		CacheService.AddCache(request, CacheService.FILTER_CACHE_NAME, filter);
+		
 		@SuppressWarnings("unchecked")
 		List<Movie> movieResult = (List<Movie>)CacheService.GetCache(request, CacheService.CURRENT_MOVIE_LIST_CACHE_NAME);
 		
-		movieResult = movieResult.subList((filter.currentPage -1)*filter.pageLength, Math.min(movieResult.size(), (filter.currentPage)*filter.pageLength));
+		if(filter.orderBy.equals("title")){
+			if(filter.isDesc){
+				movieResult = movieResult.stream().sorted(Comparator.comparing(Movie::getTitle)).collect(Collectors.toList());
+			}
+			else{
+				movieResult = movieResult.stream().sorted(Comparator.comparing(Movie::getTitle).reversed()).collect(Collectors.toList());
+			}
+		}
+		else{
+			if(filter.isDesc){
+				movieResult = movieResult.stream().sorted(Comparator.comparing(Movie::getYear).reversed()).collect(Collectors.toList());
+			}
+			else{
+				movieResult = movieResult.stream().sorted(Comparator.comparing(Movie::getYear)).collect(Collectors.toList());
+			}
+		}
 		
+		movieResult = movieResult.subList((filter.currentPage -1)*filter.pageLength, Math.min(movieResult.size(), (filter.currentPage)*filter.pageLength));
+		CacheService.AddCache(request, CacheService.FILTER_CACHE_NAME, filter);
 		ResponseService.SendJson(response, movieResult);
 	}
 

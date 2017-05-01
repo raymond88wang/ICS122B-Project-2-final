@@ -4,7 +4,6 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import DbModel.Genre;
 import DbModel.Star;
 
 public class dbStars extends dbContext {
