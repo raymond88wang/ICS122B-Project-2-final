@@ -312,15 +312,20 @@
 			</div> 			 
 			<table id="table" class="table table-bordered table-striped">
 				<tr>
+		          	<th>Image</th>
 		          	<th>ID</th>
 		          	<th>Title</th>
 		          	<th>Year</th>
 		          	<th>Director</th>
 		          	<th>Genres</th>
-		          	<th>Featured stars</th>
+		          	<th >Featured stars</th>
+		          	<th><span class = "glyphicon glyphicon-shopping-cart" ></span></th>
 		      	</tr>
 				<tbody>
 					<tr ng-repeat="movie in movieList">
+						<td align = "center">
+	    						<img src = "${movie.banner_url} class="img-thumbnail" alt="Cinque Terre" width="200" height="200"" alt= "No image"></img>
+						</td>
 			            <td>{{movie.id}}</td>
 			            <td>
 			            	<a href = "#">{{movie.title}}</a> 
